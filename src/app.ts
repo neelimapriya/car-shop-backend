@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
 import orderRouter from './app/modules/orders/order.route';
+import carRouter from './app/modules/cars/car.route';
 const app = express()
 
 // parser or middleware
@@ -13,6 +14,8 @@ app.use(cors());
 // Order routes
 app.use('/api/orders', orderRouter)
 
+// car routes
+app.use('/api/car', carRouter)
 
 app.get('/', (req:Request, res:Response) => {
   res.send('Hello World!')
