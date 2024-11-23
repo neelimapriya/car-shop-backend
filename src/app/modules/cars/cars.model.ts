@@ -41,6 +41,14 @@ const carSchema=new Schema({
         type: Boolean,
         default: true,
       },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+      updatedAt: {
+        type: Date,
+        default: Date.now,
+      },
 })
 
 const Cars=model<ICar>("car",carSchema)

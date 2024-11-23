@@ -12,13 +12,25 @@ const getAllCars=async()=>{
     return result;
 }
 
-const getSingleCar=async(id:string)=>{
+const getSingleCarService=async(id:string)=>{
     const result=await Cars.findById(id)
+    return result
+}
+const updateCar=async(id:string, data:ICar)=>{
+    const result= await Cars.findByIdAndUpdate(id,data,{
+        new:true
+    })
+    return result
+}
+const deleteCar=(id:string)=>{
+    const result= Cars.findByIdAndDelete(id)
     return result
 }
 
 export const carService={
     createCarService,
     getAllCars,
-    getSingleCar
+    getSingleCarService,
+    updateCar,
+    deleteCar
 }

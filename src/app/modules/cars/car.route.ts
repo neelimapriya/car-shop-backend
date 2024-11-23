@@ -4,6 +4,9 @@ import { carController } from "./car.controller";
 const carRouter = Router();
 
 carRouter.post("/create-car", carController.createCar);
-carRouter.get("/get-car", carController.getCars);
+carRouter.get("/", carController.getCars);
+carRouter.get("/:carId", carController.getSingleCar);
+carRouter.put("/:carId", carController.updateACar);
+carRouter.delete ("/:carId", carController.deleteCar);
 
 export default carRouter;

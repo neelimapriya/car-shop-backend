@@ -7,4 +7,6 @@ export interface ICar {
   description: string;
   quantity: number;
   inStock: boolean;
+  createdAt: NativeDate;
+  updatedAt: NativeDate;
 }
