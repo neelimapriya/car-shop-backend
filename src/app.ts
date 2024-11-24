@@ -18,7 +18,7 @@ app.use('/api/orders', orderRouter)
 app.use('/api/cars', carRouter)
 
 app.get('/', (req:Request, res:Response) => {
-  res.send('Hello World!')
+  res.send('Car shop server is running!')
 })
 
 // app.listen(port, () => {
