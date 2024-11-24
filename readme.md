@@ -26,18 +26,36 @@
 
 ## API Endpoints
 
-### **Car Routes**
+## **Car Routes**
 
 1. **POST `/api/cars/create-car`**: Add a new car.
 2. **GET `/api/cars`**: Retrieve a list of all cars.
 3. **PUT `api/cars/:id`**: Update details of a specific car.
 4. **DELETE `api/cars/:id`**: Delete a specific car.
 
-### **Order Routes**
+## **Order Routes**
 
 1. **POST `/api/orders/create-order`**: Place a new order.
 1. **GET `/api/orders/revenue`**: Place a new order.
 
+---
+
+# How to Run the Project locally
+
+### Prerequisites
+
+1. **Node.js** installed (v16 or above).
+2. **MongoDB** installed or a MongoDB Atlas account.
+3. Package manager (**npm** or **yarn**) installed.
+
+---
+
+### Steps to Run locally
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/your-repo/car-store-b4a2v3.git
+   cd car-store-b4a2v3
 
 
 
