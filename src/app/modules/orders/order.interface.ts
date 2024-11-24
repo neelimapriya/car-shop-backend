@@ -1,5 +1,5 @@
 export interface IOrder {
-  name: string;
+  // name: string;
   email: string;
   carId: {} | null | undefined;
   quantity: number;

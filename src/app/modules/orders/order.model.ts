@@ -2,12 +2,12 @@ import mongoose, { model, Schema,ObjectId, Types } from "mongoose";
 import { IOrder } from "./order.interface";
 
 const orderSchema = new Schema<IOrder>({
-  name: {
-    type: String,
-    required: [true,"Name is required"],
-    minlength:5,
-    maxlength:20
-  },
+  // name: {
+  //   type: String,
+  //   required: [true,"Name is required"],
+  //   minlength:5,
+  //   maxlength:20
+  // },
   email: {
     type: String,
     required: [true,"Email is required"],
