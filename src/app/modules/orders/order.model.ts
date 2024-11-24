@@ -43,5 +43,13 @@ const orderSchema = new Schema<IOrder>({
     default: Date.now,
   },
 });
+
+// static method
+// orderSchema.statics.isOrderExist=async function (id:number) {
+//   const existingOrder=await Order.findOne({carId:id})
+//   return existingOrder
+// }
+
+
 const Order= model<IOrder>("order", orderSchema)
 export default Order;

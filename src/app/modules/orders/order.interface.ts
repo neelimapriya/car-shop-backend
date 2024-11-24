@@ -1,4 +1,4 @@
-import { Date, Types } from "mongoose";
+import { Model } from "mongoose";
 
 export interface IOrder{
     name:string,
@@ -9,3 +9,7 @@ export interface IOrder{
     createdAt:NativeDate,
     updatedAt:NativeDate,
 }
+
+// export interface IOrderModel extends Model<IOrder>{
+//     isOrderExist(id:number): Promise<IOrder | null>;
+// }

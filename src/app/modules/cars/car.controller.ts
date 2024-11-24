@@ -1,12 +1,17 @@
 import { Request, Response } from "express";
 import { carService } from "./car.service";
+import zodValid from "./car.validationZod";
 
 //  --------POST CAR--------
 const createCar = async (req: Request, res: Response) => {
   try {
-    const payload = req.body;
-    const result = await carService.createCarService(payload);
+    // const payload = req.body;
+    // const result = await carService.createCarService(payload);
 
+
+    // zod validation
+    const zodParsedData = zodValid.parse(req.body);
+    const result = await carService.createCarService(zodParsedData);
     res.status(200).json({
       success: true,
       message: "Car created successfully",
@@ -82,7 +87,7 @@ const deleteCar = async (req: Request, res: Response) => {
   try {
     const { carId } = req.params;
 
-     await carService.deleteCar(carId);
+    await carService.deleteCar(carId);
     res.status(200).json({
       success: true,
       message: "Car deleted successfully",
@@ -91,7 +96,7 @@ const deleteCar = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "something went wrong",
+      message: "Something Went Wrong",
       error,
     });
   }
