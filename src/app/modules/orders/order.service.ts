@@ -5,7 +5,7 @@ import Order from "./order.model";
 
 const createCustomerOrder = async (payload: IOrder): Promise<IOrder> => {
   const findProduct = await Cars.findOne({
-    _id: new Types.ObjectId(payload.carId),
+    _id:payload.carId,
     "quantity": { $gte: payload.quantity },
   });
 
@@ -18,6 +18,7 @@ const createCustomerOrder = async (payload: IOrder): Promise<IOrder> => {
   await findProduct.save();
 
   const result = await Order.create(payload);
+  console.log("carId:", payload.carId);
   return result;
   // const result = await Order.create(payload);
   // return result;

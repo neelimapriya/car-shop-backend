@@ -35,7 +35,8 @@
 
 ### **Order Routes**
 
-1. **POST `/api/order/create-order`**: Place a new order.
+1. **POST `/api/orders/create-order`**: Place a new order.
+1. **GET `/api/orders/revenue`**: Place a new order.
 
 
 
