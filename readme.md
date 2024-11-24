@@ -54,7 +54,7 @@
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/your-repo/car-store-b4a2v3.git
+   git clone https://github.com/neelimapriya/car-shop-backend
    cd car-store-b4a2v3
 
 
