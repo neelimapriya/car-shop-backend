@@ -28,14 +28,14 @@
 
 ## **Car Routes**
 
-1. **POST `/api/cars/create-car`**: Add a new car.
+1. **POST `/api/cars`**: Add a new car.
 2. **GET `/api/cars`**: Retrieve a list of all cars.
 3. **PUT `api/cars/:id`**: Update details of a specific car.
 4. **DELETE `api/cars/:id`**: Delete a specific car.
 
 ## **Order Routes**
 
-1. **POST `/api/orders/create-order`**: Place a new order.
+1. **POST `/api/orders`**: Place a new order.
 1. **GET `/api/orders/revenue`**: Place a new order.
 
 ---

@@ -1,7 +1,6 @@
 export interface IOrder {
-  // name: string;
   email: string;
-  carId: {} | null | undefined;
+  car: {} | null | undefined;
   quantity: number;
   totalPrice: number;
   createdAt: NativeDate;
