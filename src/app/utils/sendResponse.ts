@@ -10,6 +10,7 @@ type TResponse<T>={
     success: boolean;
     message?: string;
     meta?: TMeta;
+    token?:string;
     data: T;
   }
 
