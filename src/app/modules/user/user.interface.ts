@@ -16,10 +16,10 @@ export interface UserModel extends Model<IUser> {
         planePassword: string,
         hashPassword: string,
     ): Promise<boolean>;
-    // isJWTissuedBeforePasswordChange(
-    //     passwordChangeTime: Date,
-    //     JwtIssuedTime: number,
-    // ): Promise<boolean>;
+    isJWTissuedBeforePasswordChange(
+        passwordChangeTime: Date,
+        JwtIssuedTime: number,
+    ): Promise<boolean>;
 }
 
 

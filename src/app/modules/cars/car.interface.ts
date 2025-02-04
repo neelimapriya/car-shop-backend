@@ -1,5 +1,6 @@
 export interface ICar {
   brand: string;
+  image: string;
   model: string;
   year: number;
   price: number;

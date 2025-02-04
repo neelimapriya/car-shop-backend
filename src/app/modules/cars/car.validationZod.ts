@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-const carSchema = z.object({
+const createCar = z.object({
+ body:z.object({
   brand: z.string().trim().nonempty("Brand name is required"),
   model: z.string().trim().nonempty("Model name is required"),
   year: z.number().nonnegative("Year is required"),
@@ -17,6 +18,7 @@ const carSchema = z.object({
   inStock: z.boolean().optional().default(true),
   createdAt: z.date().default(() => new Date()),
   updatedAt: z.date().default(() => new Date()),
+ })
 });
 
-export default carSchema;
+export const carSchema={createCar};

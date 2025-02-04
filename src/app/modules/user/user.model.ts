@@ -46,5 +46,16 @@ userSchema.static(
         return await bcrypt.compare(planePassword, hashPassword);
     },
 );
+userSchema.static('isUserBlocked', async function (status: string) {
+    return status === 'blocked';
+});
+userSchema.static(
+    'isJWTissuedBeforePasswordChange',
+    async function (passwordChangeTime: Date, JwtIssuedTime: number) {
+        const passwordChangeAtTime =
+            new Date(passwordChangeTime).getTime() / 1000;
 
+        return passwordChangeAtTime > JwtIssuedTime;
+    },
+);
 export const User = model<IUser, UserModel>('User', userSchema);

@@ -23,6 +23,7 @@ export const sendResponse = <T>(
     success:data.success,
     message:data.message,
     meta: data.meta,
-    data:data.data
+    data:data.data,
+    token:data.token
   })
 };

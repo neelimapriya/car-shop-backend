@@ -9,7 +9,7 @@ export const createToken = async (
         expiresIn: expiresIn,
     });
    
-
+    
     return token;
 };
 

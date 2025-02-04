@@ -37,45 +37,7 @@ const getOrder = async (req: Request, res: Response) => {
   }
 };
 
-// const getTotalPrice=async(req:Request, res:Response)=>{
-//     const {carId}=req.params
-//     const id=parseInt(carId)
 
-//     try{
-//         const result =await orderService.getTotalPriceFromDB(id)
-//         if(result !== null){
-//             let totalPrice=0;
-//             const totalArray:number[]=result[0].order?.map(
-//                 (i:IOrder)=>i?.totalPrice * i?.quantity
-//             )
-//             totalArray.forEach((i)=>(totalPrice +=i))
-
-//             return res.status(200).json({
-//                 success: true,
-//                 message: 'Total price calculated successfully!',
-//                 data: { totalPrice },
-//               });
-//         }else{
-//             return res.status(400).json({
-//                 success: false,
-//                 message: 'Orders not found',
-//                 error: {
-//                   code: 404,
-//                   description: 'Orders not found!',
-//                 },
-//               });
-//         }
-//     }catch (err) {
-//         res.status(400).json({
-//           success: false,
-//           message: 'Orders not found',
-//           error: {
-//             code: 404,
-//             description: 'Orders not found!',
-//           },
-//         });
-//       }
-// }
 
 const getTotalPrice = async (req: Request, res: Response) => {
   try {

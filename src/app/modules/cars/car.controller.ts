@@ -1,29 +1,22 @@
 import { Request, Response } from "express";
 import { carService } from "./car.service";
-import zodValid from "./car.validationZod";
+import catchAsync from "../../utils/catchAsync";
+import { sendResponse } from "../../utils/sendResponse";
+import { StatusCodes } from "http-status-codes";
 
 //  --------POST CAR--------
-const createCar = async (req: Request, res: Response) => {
-  try {
-    // const payload = req.body;
-    // const result = await carService.createCarService(payload);
-
-
-    // zod validation
-    const zodParsedData = zodValid.parse(req.body);
-    const result = await carService.createCarService(zodParsedData);
-    res.status(200).json({
-      success: true,
-      message: "Car created successfully",
-      data: result,
-    });
-  } catch (err) {
-    res.json({
-      message: "Something went wrong",
-      error: err,
-    });
-  }
-};
+const createCar=catchAsync(async(req,res)=>{
+  const payload=req.body
+  console.log(payload);
+  const result=await carService.createCarService(req.file, payload)
+  console.log(result);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: 'Car added successfully',
+    data: result,
+});
+})
 
 // -----------------GET  CAR----------
 const getCars = async (req: Request, res: Response) => {

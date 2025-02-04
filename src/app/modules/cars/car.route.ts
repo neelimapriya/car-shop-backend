@@ -1,9 +1,22 @@
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import { carController } from "./car.controller";
+import validateRequest from "../../middleware/validateRequest";
+import { carSchema } from "./car.validationZod";
+import auth from "../../middleware/auth";
+import { USER_ROLE, UserRole } from "../user/user.constant";
+import { upload } from "../../utils/sendImageToCloudinary";
+
 
 const carRouter = Router();
 
-carRouter.post("/", carController.createCar);
+carRouter.post("/",
+    // auth(USER_ROLE.admin),
+    upload.single('file'),
+  (req: Request, res: Response, next: NextFunction) => {
+    req.body = JSON.parse(req.body.data);
+    next();
+  },
+    validateRequest(carSchema.createCar), carController.createCar);
 carRouter.get("/", carController.getCars);
 carRouter.get("/:carId", carController.getSingleCar);
 carRouter.put("/:carId", carController.updateACar);

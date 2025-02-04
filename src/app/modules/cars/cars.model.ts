@@ -7,6 +7,7 @@ const carSchema = new Schema({
     required: [true, "Brand name is required"],
     trim: true,
   },
+  image: { type: String, required: true },
   model: {
     type: String,
     required: [true, "Model name is required"],

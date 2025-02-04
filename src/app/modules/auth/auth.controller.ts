@@ -19,7 +19,7 @@ const registerUser = catchAsync(async (req, res) => {
 const logIn = catchAsync(async (req, res) => {
     const payload = req.body;
     const { token, refreshToken, user } = await AuthService.loginUser(payload);
-    console.log(token),
+    // console.log(token),
     res.cookie('refreshToken', refreshToken, {
         secure: config.Node_env === 'production',
         httpOnly: true,
@@ -49,8 +49,22 @@ const getRefreshToken = catchAsync(async (req, res) => {
     });
 });
 
+const changePassword = catchAsync(async (req, res) => {
+    const { ...passwordData } = req.body;
+
+    const result = await AuthService.changePassword(req.user, passwordData);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: 'User Password Changed successfully',
+        data: result,
+    });
+});
+
 export const AuthController={
     registerUser,
     logIn,
-    getRefreshToken
+    getRefreshToken,
+    changePassword
 }
