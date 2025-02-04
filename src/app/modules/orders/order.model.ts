@@ -15,7 +15,7 @@ const orderSchema = new Schema<IOrder>({
     }
   },
   car: {
-    type: Types.ObjectId  ,
+    type: Schema.Types.ObjectId  ,
     ref: "Car",
     required: true,
   },
@@ -29,6 +29,7 @@ const orderSchema = new Schema<IOrder>({
     required: true,
     min: 0,
   },
+  orderPayment: { type: String, enum: ['paid' , 'unpaid'], required: true, default: 'unpaid' },
   createdAt: {
     type: Date,
     default: Date.now,

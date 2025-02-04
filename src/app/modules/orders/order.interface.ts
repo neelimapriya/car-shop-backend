@@ -1,8 +1,11 @@
+import { Types } from "mongoose";
+
 export interface IOrder {
   email: string;
-  car: {} | null | undefined;
+  car: Types.ObjectId;
   quantity: number;
   totalPrice: number;
+  orderPayment: 'paid' | 'unpaid'
   createdAt: NativeDate;
   updatedAt: NativeDate;
 }

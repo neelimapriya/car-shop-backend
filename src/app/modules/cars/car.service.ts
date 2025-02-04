@@ -23,6 +23,7 @@ const getAllCars = async () => {
 
 const getSingleCarService = async (id: string) => {
   const result = await Cars.findById(id);
+  console.log(result);
   return result;
 };
 const updateCar = async (id: string, data: ICar) => {

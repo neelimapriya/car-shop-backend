@@ -11,10 +11,14 @@ const carRouter = Router();
 
 carRouter.post("/",
     // auth(USER_ROLE.admin),
-    upload.single('file'),
+    upload.single('image'),
   (req: Request, res: Response, next: NextFunction) => {
-    req.body = JSON.parse(req.body.data);
-    next();
+    try {
+      req.body = JSON.parse(req.body.data);
+      next();
+    } catch (error) {
+      res.status(400).json({ error: "Invalid JSON data" });
+    }
   },
     validateRequest(carSchema.createCar), carController.createCar);
 carRouter.get("/", carController.getCars);

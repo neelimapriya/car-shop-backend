@@ -1,5 +1,5 @@
 import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
-import multer from "multer";
+import multer, { Multer } from "multer";
 import config from '../config';
 import fs from 'fs';
 
@@ -47,4 +47,4 @@ const storage = multer.diskStorage({
     },
 });
 
-export const upload = multer({ storage: storage });
+export const upload: Multer = multer({ storage });

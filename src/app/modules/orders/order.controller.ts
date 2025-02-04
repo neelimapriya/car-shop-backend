@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-import Order from "./order.model";
 import { orderService, getTotalPriceFromDB } from "./order.service";
-import { IOrder } from "./order.interface";
+import catchAsync from "../../utils/catchAsync";
+import { sendResponse } from "../../utils/sendResponse";
+import { StatusCodes } from "http-status-codes";
+
 
 const createOrder = async (req: Request, res: Response) => {
   try {
@@ -38,6 +40,19 @@ const getOrder = async (req: Request, res: Response) => {
 };
 
 
+const getSingleOrder = catchAsync(async (req, res) => {
+  const { email } = req.user;
+
+  const result = await orderService.getSingleOrderService(email, req.query);
+
+  sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: 'Order retrieved successfully',
+      data: result.data,
+      meta: result.meta,
+  });
+});
 
 const getTotalPrice = async (req: Request, res: Response) => {
   try {
@@ -60,4 +75,5 @@ export const orderController = {
   createOrder,
   getOrder,
   getTotalPrice,
+  getSingleOrder
 };
