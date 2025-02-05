@@ -16,12 +16,6 @@ app.use(cors({origin:['http://localhost:5173'], credentials:true}));
 
 
 app.use('/api',router)
-
-// // Order routes
-// app.use('/api/orders', orderRouter)
-
-// // car routes
-// app.use('/api/cars', carRouter)
 const getAController = (req: Request, res: Response) => {
   res.send('Car shop server is running!')
 };

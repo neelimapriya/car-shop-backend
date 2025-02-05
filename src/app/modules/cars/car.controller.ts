@@ -1,99 +1,90 @@
 import { Request, Response } from "express";
-import { carService } from "./car.service";
 import catchAsync from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import { carService } from "./car.service";
 import { StatusCodes } from "http-status-codes";
+import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 
-//  --------POST CAR--------
-const createCar=catchAsync(async(req,res)=>{
-  const payload=req.body
-  console.log(payload);
-  const result=await carService.createCarService(req.file, payload)
-  console.log(result);
+const createCar = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
+  const result = await carService.createCarService(req.file, payload);
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: StatusCodes.CREATED,
     success: true,
     message: 'Car added successfully',
     data: result,
+  });
 });
-})
 
-// -----------------GET  CAR----------
-const getCars = async (req: Request, res: Response) => {
-  try {
-    const result = await carService.getAllCars();
-    res.status(200).json({
-      success: true,
-      message: "Cars retrieved successfully",
-      data: result,
-    });
-  } catch (err) {
-    res.json({
-      message: "Something went wrong",
-      error: err,
-    });
-  }
-};
+// -----------------GET CARS----------
+const getCars = catchAsync(async (req: Request, res: Response) => {
+  const result = await carService.getAllCars();
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Cars retrieved successfully",
+    data: result,
+  });
+});
 
 // --------------GET A CAR-----------------
-const getSingleCar = async (req: Request, res: Response) => {
-  try {
-    console.log(req.params);
-    const carId = req.params.carId;
-    const result = await carService.getSingleCarService(carId);
-    res.send({
-      status: true,
-      message: "Car retrieved successfully",
-      result,
-    });
-  } catch (error) {
-    res.json({
-      status: false,
-      message: "Something went wrong",
-      error,
-    });
-  }
-};
+const getSingleCar = catchAsync(async (req: Request, res: Response) => {
+  const carId = req.params.carId;
+  const result = await carService.getSingleCarService(carId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Car retrieved successfully",
+    data: result,
+  });
+});
 
 // -----------UPDATE CAR------------
-const updateACar = async (req: Request, res: Response) => {
-  try {
-    const carId = req.params.carId;
-    const body = req.body;
-    const result = await carService.updateCar(carId, body);
+const updateACar = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  let updatedData = req.body;
 
-    res.send({
-      status: true,
-      message: "Car updated successfully",
-      result,
-    });
-  } catch (error) {
-    res.json({
-      status: false,
-      message: "Something went wrong",
-      error,
-    });
+  // If an image is uploaded, process it
+  if (req.file) {
+    const cloudinaryResult = await sendImageToCloudinary(req.file.filename, req.file.path);
+    if (cloudinaryResult && cloudinaryResult.secure_url) {
+      updatedData.image = cloudinaryResult.secure_url;
+    } else {
+      console.log("Failed to upload image to Cloudinary.");
+    }
   }
-};
 
-const deleteCar = async (req: Request, res: Response) => {
-  try {
-    const { carId } = req.params;
+  const result = await carService.updateCar(id, updatedData);
 
-    await carService.deleteCar(carId);
-    res.status(200).json({
-      success: true,
-      message: "Car deleted successfully",
-      data: {},
-    });
-  } catch (error) {
-    res.status(500).json({
+  if (!result) {
+    sendResponse(res, {
+      statusCode: StatusCodes.NOT_FOUND,
       success: false,
-      message: "Something Went Wrong",
-      error,
+      message: "Car not found",
+      data:result
     });
+    return;
   }
-};
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Car updated successfully",
+    data: result,
+  });
+});
+
+// -----------DELETE CAR------------
+const deleteCar = catchAsync(async (req: Request, res: Response) => {
+  const { carId } = req.params;
+  await carService.deleteCar(carId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Car deleted successfully",
+    data:null
+  });
+});
 
 export const carController = {
   createCar,

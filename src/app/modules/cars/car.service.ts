@@ -26,12 +26,35 @@ const getSingleCarService = async (id: string) => {
   console.log(result);
   return result;
 };
+// const updateCar = async (id: string, data: ICar) => {
+//   const result = await Cars.findByIdAndUpdate(id, data, {
+//     new: true,
+//   });
+//   console.log(result,"service");
+//   return result;
+// };
+
 const updateCar = async (id: string, data: ICar) => {
-  const result = await Cars.findByIdAndUpdate(id, data, {
-    new: true,
-  });
-  return result;
+  try {
+    const result = await Cars.findByIdAndUpdate(id, data, {
+      new: true, // Return updated document
+      runValidators: true, // Ensure validations are applied
+    });
+
+    if (!result) {
+      console.log(`Car with ID ${id} not found.`);
+      return null;
+    }
+
+    console.log("Service: Updated Car Data:", result);
+    return result;
+  } catch (error) {
+    console.error("Error updating car in service:", error);
+    throw error;
+  }
 };
+
+
 const deleteCar = (id: string) => {
   const result = Cars.findByIdAndDelete(id);
   return result;

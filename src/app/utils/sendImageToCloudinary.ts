@@ -10,41 +10,37 @@ cloudinary.config({
     api_secret: config.cloudinary_api_secret,
 });
 
-export const sendImageToCloudinary = (
-    carImage: string,
-    path: string,
-): Promise<Record<string, unknown>> => {
+export const sendImageToCloudinary = (carImage: string, path: string): Promise<Record<string, unknown>> => {
     return new Promise((resolve, reject) => {
-           // Upload an image
-        cloudinary.uploader.upload(
-            path,
-            { public_id: carImage },
-            function (error, result) {
-                if (error) {
-                    reject(error);
-                }
-                resolve(result as UploadApiResponse);
-                // delete a file asynchronously
-                fs.unlink(path, (err) => {
-                    if (err) {
-                        console.log(err);
-                    }else {
-                        console.log('file deleted');
-                      }
-                });
-            },
-        );
+      cloudinary.uploader.upload(
+        path,
+        { public_id: carImage },
+        function (error, result) {
+          if (error) {
+            reject(error);
+          }
+          resolve(result as UploadApiResponse);
+          fs.unlink(path, (err) => {
+            if (err) {
+              console.log("error from cloudinary:", err);
+            } else {
+              console.log("File deleted successfully.");
+            }
+          });
+        }
+      );
     });
-};
-
-const storage = multer.diskStorage({
+  };
+  
+  // Multer Storage Configuration
+  const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, process.cwd() + '/uploads/');
+      cb(null, process.cwd() + "/uploads/");
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        cb(null, file.fieldname + '-' + uniqueSuffix);
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      cb(null, file.fieldname + "-" + uniqueSuffix);
     },
-});
-
-export const upload: Multer = multer({ storage });
+  });
+  
+  export const upload: Multer = multer({ storage });
