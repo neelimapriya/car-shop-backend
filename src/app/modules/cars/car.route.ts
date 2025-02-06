@@ -10,7 +10,7 @@ const carRouter = Router();
 
 carRouter.post(
   "/",
-  // auth(USER_ROLE.admin),
+  auth(USER_ROLE.admin),
   upload.single("image"),
   (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -26,23 +26,8 @@ carRouter.post(
 carRouter.get("/", carController.getCars);
 carRouter.get("/:carId", carController.getSingleCar);
 
-// carRouter.put(
-//   "/:id",
-//   upload.single("image"),
-//   async(req: Request, res: Response, next: NextFunction) => {
-//     try {
-//       if (req.body.data) {
-//         req.body = JSON.parse(req.body.data);
-//       }
-//       next();
-//     } catch (error) {
-//       console.log(error, "json data error");
-//       res.status(400).json({ error: "Invalid JSON data" });
-//     }
-//   },
-//   carController.updateACar)
 carRouter.put(
-  "/:id",
+  "/:id",auth(USER_ROLE.admin),
   upload.single("image"),
   async (req: Request, res: Response, next: NextFunction) => {
     try {

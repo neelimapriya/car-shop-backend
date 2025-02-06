@@ -5,14 +5,14 @@ import { USER_ROLE } from "../user/user.constant";
 
 const orderRouter = Router();
 
-orderRouter.post("/", orderController.createOrder);
+orderRouter.post("/",auth(USER_ROLE.admin, USER_ROLE.user), orderController.createOrder);
 
 orderRouter.get(
   "/:email",
   auth(USER_ROLE.admin, USER_ROLE.user),
   orderController.getSingleOrder
 );
-orderRouter.get("/", orderController.getOrder);
-orderRouter.get("/revenue", orderController.getTotalPrice);
+orderRouter.get("/",auth(USER_ROLE.admin), orderController.getOrder);
+orderRouter.get("/revenue",auth(USER_ROLE.admin), orderController.getTotalPrice);
 
 export default orderRouter;
