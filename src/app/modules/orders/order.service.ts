@@ -59,25 +59,39 @@ const getSingleOrderService = async (email: string, query: Record<string, unknow
       data,
   };
 };
-export const getTotalPriceFromDB =async()=>{
-  const reveneu= await Order.aggregate([
+// export const getTotalPriceFromDB =async()=>{
+//   const reveneu= await Order.aggregate([
+//     {
+//       $project:{
+//         totalPrice:{$multiply:["$totalPrice", "$quantity"]}
+//       },
+
+//     },
+//     {
+//       $group:{
+//         _id:null,
+//         totalRevenue:{$sum:"$totalPrice"}
+//       }
+//     }
+//   ])
+
+//   const result= reveneu[0]?.totalRevenue || 0
+//   console.log(result);
+//   return result
+// }
+
+const getTotalPriceFromDB = async () => {
+  const revenue = await Order.aggregate([
     {
-      $project:{
-        totalPrice:{$multiply:["$totalPrice", "$quantity"]}
+      $group: {
+        _id: null,
+        totalRevenue: { $sum: "$totalPrice" }, 
       },
-
     },
-    {
-      $group:{
-        _id:null,
-        totalRevenue:{$sum:"$totalPrice"}
-      }
-    }
-  ])
+  ]);
+  return revenue.length > 0 ? revenue[0] : { totalRevenue: 0 };
+};
 
-  const result= reveneu[0]?.totalRevenue || 0
-  return result
-}
 export const orderService = {
   createCustomerOrder,
   getOrderService,

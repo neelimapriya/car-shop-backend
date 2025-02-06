@@ -18,12 +18,13 @@ const createCar = catchAsync(async (req: Request, res: Response) => {
 
 // -----------------GET CARS----------
 const getCars = catchAsync(async (req: Request, res: Response) => {
-  const result = await carService.getAllCars();
+  const result = await carService.getAllCars(req.query);
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
     message: "Cars retrieved successfully",
-    data: result,
+    data: result.data,
+    meta:result.meta,
   });
 });
 

@@ -13,7 +13,7 @@ router.get(
 
 router.get("/", auth(USER_ROLE.admin), UserController.allUsers);
 
-router.patch("/:id", auth(USER_ROLE.admin), UserController.updateUser);
+router.patch("/:id", auth(USER_ROLE.admin,USER_ROLE.user), UserController.updateUser);
 
 router.put(
   "/me",

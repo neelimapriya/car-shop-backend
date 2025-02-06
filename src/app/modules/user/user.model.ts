@@ -11,6 +11,7 @@ const userSchema = new Schema<IUser, UserModel>(
         email: { type: String, required: true, unique: true },
         password: { type: String, required: true, select: 0 },
         role: { type: String, enum: UserRole, default: 'user' },
+   
     },
     {
         timestamps: true,

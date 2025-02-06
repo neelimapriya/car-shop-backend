@@ -12,7 +12,7 @@ export const auth = (...requestRoles: IUserRole[]) => {
     return catchAsync(
         async (req: Request, res: Response, next: NextFunction) => {
             const token = req.headers.authorization;
-            console.log(token,"auth.ts");
+            // console.log(token,"auth.ts");
             if (!token) {
                 throw new AppError(
                     StatusCodes.UNAUTHORIZED,

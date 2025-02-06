@@ -51,7 +51,7 @@ carRouter.put(
       }
       next();
     } catch (error) {
-      console.log("JSON Data Error:", error);
+      // console.log("JSON Data Error:", error);
       res.status(400).json({ error: "Invalid JSON data" });
     }
   },

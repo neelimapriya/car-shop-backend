@@ -12,7 +12,7 @@ orderRouter.get(
   auth(USER_ROLE.admin, USER_ROLE.user),
   orderController.getSingleOrder
 );
-orderRouter.get("/get-orders", orderController.getOrder);
+orderRouter.get("/", orderController.getOrder);
 orderRouter.get("/revenue", orderController.getTotalPrice);
 
 export default orderRouter;

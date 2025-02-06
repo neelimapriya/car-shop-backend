@@ -13,3 +13,4 @@ export interface IOrder {
 // export interface IOrderModel extends Model<IOrder>{
 //     isOrderExist(id:number): Promise<IOrder | null>;
 // }
+

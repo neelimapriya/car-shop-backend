@@ -26,6 +26,13 @@ const deleteUser = async (id: string): Promise<IUser | null> => {
   const result = await User.findByIdAndDelete(id);
   return result;
 };
+const updateUser = async (
+  id: string,
+  payload: Partial<IUser>
+): Promise<IUser | null> => {
+  const user = await User.findByIdAndUpdate(id, payload, { new: true });
+  return user;
+};
 const updateProfile = async (
   email: string,
   payload: Partial<IUser>
@@ -34,13 +41,7 @@ const updateProfile = async (
   return user;
 };
 
-const updateUser = async (
-  id: string,
-  payload: Partial<IUser>
-): Promise<IUser | null> => {
-  const user = await User.findByIdAndUpdate(id, payload, { new: true });
-  return user;
-};
+
 
 export const UserService = {
   allUsers,

@@ -42,7 +42,9 @@ const loginUser = async (payload: ILoginUser) => {
   if (!isUserPasswordMatched) {
     throw new AppError(StatusCodes.UNAUTHORIZED, "Password is Incorrect");
   }
-
+  // if (status === 'blocked') {
+  //   throw new AppError(StatusCodes.FORBIDDEN, 'This user is blocked ! !');
+  // }
   //create token and sent to the  client
   const jwtPayload = {
     email: userCheck.email as string,
@@ -58,8 +60,8 @@ const loginUser = async (payload: ILoginUser) => {
     config.refresh_access_secret as string,
     config.refresh_access_expiresIn as string
   );
-  console.log(token,"token");
-  console.log(refreshToken,"refresh token");
+  // console.log(token,"token");
+  // console.log(refreshToken,"refresh token");
 
   const user = await User.findOne({ email: userCheck.email });
   return {
